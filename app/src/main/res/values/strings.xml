@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">OnDemandXDagger</string>
+    <string name="title_dynamicfeature">My Dynamic Module</string>
+    <string name="title_dynamicfeaturemodule">Dynamic Module Example</string>
+</resources>
