@@ -1,11 +1,13 @@
 package com.anniekobia.ondemandxdagger
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import com.google.android.play.core.splitcompat.SplitCompat
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -23,6 +25,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setUpOnDemandModule()
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        SplitCompat.installActivity(this)
     }
 
     private fun setUpOnDemandModule() {
@@ -43,6 +50,10 @@ class MainActivity : AppCompatActivity() {
                         }
                         SplitInstallSessionStatus.INSTALLED -> {
                             Log.d("ONDEMAND: ","Downloading on demand module: state INSTALLED")
+
+//                            SplitCompat.install(this)
+
+                            accessButton.isEnabled = true
                         }
                         SplitInstallSessionStatus.CANCELED -> {
                             Log.d("ONDEMAND: ","Downloading on demand module: state CANCELED")
@@ -76,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Log.e("ONDEMAND: ", "Successfully installed ondemandfeature")
 
-                    accessButton.isEnabled = true
+                   // accessButton.isEnabled = true
                 }
                 .addOnFailureListener { exception ->
                     Log.e("ONDEMAND: ", "Error installing ondemandfeature")
